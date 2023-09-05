@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api';
 
 import styled from 'styled-components';
 
@@ -17,6 +17,10 @@ const center = {
 const Home = ({ courts }) => {
   console.log(courts);
   const [apiKey, setApiKey] = useState('');
+
+  // const onLoad = (marker) => {
+  //   console.log('marker: ', marker);
+  // };
 
   useEffect(() => {
     // Fetch the API key from the backend
@@ -39,6 +43,9 @@ const Home = ({ courts }) => {
 
     fetchAPIKey();
   }, []);
+  if (courts.length === 0) {
+    return <p>Loading</p>;
+  }
 
   return (
     <StyledMapContainer>
@@ -49,8 +56,6 @@ const Home = ({ courts }) => {
             center={center}
             zoom={13} // Initial zoom level to focus on Montreal
             options={{
-              minZoom: 12,
-              maxZoom: 15,
               styles: [
                 {
                   featureType: 'poi',
@@ -71,7 +76,7 @@ const Home = ({ courts }) => {
                   court.location.lng
                 );
                 return (
-                  <Marker
+                  <MarkerF
                     key={court._id}
                     position={{
                       lat: parseFloat(court.location.lat),
