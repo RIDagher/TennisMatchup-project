@@ -177,13 +177,6 @@ const Input = styled.input`
   border-radius: 5px;
 `;
 
-const Select = styled.select`
-  flex: 2;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
 const Button = styled.button`
   padding: 10px 20px;
   border: none;

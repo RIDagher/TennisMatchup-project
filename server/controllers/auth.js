@@ -58,7 +58,6 @@ const register = async (req, res) => {
     };
 
     const result = await db.collection(US_COLL).insertOne(newUser);
-    console.log('this is new user', result, newUser);
 
     res.status(201).json({
       acknowledged: result.acknowledged,

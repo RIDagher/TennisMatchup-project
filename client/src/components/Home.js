@@ -141,7 +141,6 @@ const Home = ({ courts }) => {
             center={center}
             zoom={12}
             options={{
-              // ... other options ...
               minZoom: 10,
               maxZoom: 20,
               styles: vibrantStyles,
@@ -179,7 +178,7 @@ const Home = ({ courts }) => {
                   <p>{selectedCourt.address}</p>
                   <p>{selectedCourt.indoorOrOutdoor}</p>
 
-                  {/* You can add more court details here */}
+                  {/* TO add more court details here */}
                 </div>
               </InfoWindow>
             )}

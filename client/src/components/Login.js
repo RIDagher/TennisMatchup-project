@@ -86,7 +86,6 @@ const Login = () => {
 
 const Wrapper = styled.div`
   display: flex;
-  /* Reverse the order to display the image on the right and the form on the left */
   align-items: center;
   min-height: 100vh;
   font-family: 'Arial', sans-serif;

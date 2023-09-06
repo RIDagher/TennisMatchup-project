@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Register = () => {
@@ -183,7 +183,6 @@ const ImageWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 50%; // Set width to 50% of the screen
 `;
 

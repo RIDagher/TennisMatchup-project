@@ -17,15 +17,6 @@ const NewMatchForm = ({ onNewMatch }) => {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
 
-    // Log here
-    console.log('dateTime:', dateTime);
-    console.log('address:', address);
-    console.log('skillLevel:', skillLevel);
-    console.log('type:', type);
-
-    // Log here
-    console.log('userDetails:', userDetails);
-
     if (!dateTime || !address || !skillLevel || !type) {
       setError('Please fill in all the fields.');
       return;
@@ -111,8 +102,6 @@ const NewMatchForm = ({ onNewMatch }) => {
   );
 };
 
-// ... [Your other imports and main component logic]
-const OrganizerName = styled.h2``;
 const Form = styled.form`
   background: url('assets/racket1.avif') no-repeat center center;
   background-size: cover;
@@ -124,7 +113,7 @@ const Form = styled.form`
 `;
 
 const Button = styled.button`
-  background: #f4d1ae; // Soft peachy color
+  background: #f4d1ae;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
@@ -133,7 +122,7 @@ const Button = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background: #e9bc9a; // Slightly darker peach on hover
+    background: #e9bc9a;
   }
 `;
 
@@ -143,7 +132,7 @@ const Input = styled.input`
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.9); // Slightly transparent background
+  background-color: rgba(255, 255, 255, 0.9);
 `;
 
 const Select = styled.select`

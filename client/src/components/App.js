@@ -33,7 +33,6 @@ const App = () => {
         }
 
         setCourts(result.data);
-        console.log('Fetched courts data:', result.data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -75,8 +74,6 @@ const App = () => {
   );
 };
 
-const Main = styled.div`
-  /* height: calc(100vh - 150px);*/
-`;
+const Main = styled.div``;
 
 export default App;

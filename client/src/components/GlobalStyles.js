@@ -20,9 +20,6 @@ export default createGlobalStyle`
 
 }
 
-.footer {
-  flex-shrink: 0; /* This prevents the footer from shrinking */
-}
 
     ol, ul {
         list-style: none;

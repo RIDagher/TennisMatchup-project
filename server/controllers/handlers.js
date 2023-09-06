@@ -50,17 +50,9 @@ const getUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  console.log('Update User Data:', req.body);
   const { _id } = req.params;
-  console.log(
-    'User ID from request params:',
-    req.params._id,
-    typeof req.params._id
-  );
-  console.log('User ID from token:', req.user._id, typeof req.user._id);
 
   if (req.params._id !== req.user._id) {
-    console.log('Request ID and Token ID mismatch');
     return res.status(403).json({
       message: 'You can only update your own profile',
     });
@@ -68,7 +60,6 @@ const updateUser = async (req, res) => {
 
   // Validate incoming data
   if (req.body.email && !req.body.email.includes('@')) {
-    console.log('Invalid email format');
     return res.status(400).json({ message: 'Invalid email format.' });
   }
 
@@ -82,44 +73,32 @@ const updateUser = async (req, res) => {
     // Check if user exists
     const existingUser = await db.collection(US_COLL).findOne(filter);
     if (!existingUser) {
-      console.log('User not found in the database');
       return res.status(404).json({ message: 'User not found.' });
     }
 
     const updateOperation = { $set: req.body };
-    console.log('Filter:', filter);
-    console.log('Update Operation:', updateOperation);
 
     const result = await db
       .collection(US_COLL)
       .findOneAndUpdate(filter, updateOperation, {
         returnDocument: 'after',
       });
-    console.log('Is result.value undefined?', result.value === undefined);
-    console.log('Is result.value null?', result.value === null);
-
-    console.log('Complete Update Result:', result);
 
     const updatedUser = result.value;
 
     if (updatedUser) {
-      console.log('Update successful, sending 200 Success response');
       delete updatedUser.hashedPassword;
       delete updatedUser.password; // Ensure raw password is not exposed
       return res
         .status(200)
         .json({ status: 200, data: updatedUser, message: 'Success' });
     } else {
-      console.log(
-        'No updates made to the user, sending 404 Not Found response'
-      );
       return res.status(404).json({
         status: 404,
         message: 'User not found or no updates required.',
       });
     }
   } catch (error) {
-    console.error('An error occurred:', error);
     res.status(500).json({
       message: 'An error occurred while updating the user profile.',
       error: error.message,
@@ -172,7 +151,7 @@ const geocodeAddress = async (address) => {
       throw new Error('No address provided');
     }
     const response = await googleMapsClient.geocode({ address }).asPromise();
-    console.log('Google Maps Response:', response.json); // debugging the shape of the response.
+    //console.log('Google Maps Response:', response.json); // debugging the shape of the response.
 
     if (response.json.results && response.json.results.length > 0) {
       const location = response.json.results[0].geometry.location;
@@ -192,7 +171,7 @@ const geocodeAddress = async (address) => {
 const createCourt = async (req, res) => {
   const db = req.app.locals.db;
   const { name, indoorOrOutdoor, openingHours, address } = req.body;
-  console.log('Received files:', req.files);
+
   //Input validation
   if (!name || !indoorOrOutdoor || !openingHours || !address) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -201,7 +180,6 @@ const createCourt = async (req, res) => {
   try {
     // Geocode the address to get lat/lng
     const geocodedAddress = await geocodeAddress(address);
-    console.log('Geocoded address:', geocodedAddress);
 
     if (!geocodedAddress || !geocodedAddress.lat || !geocodedAddress.lng) {
       throw new Error('Failed to geocode the address.');
@@ -216,12 +194,10 @@ const createCourt = async (req, res) => {
       address, // This will be in the format { lat: x, lng: y }
       photos: req.files ? req.files.map((file) => file.path) : [],
     };
-    console.log('Received files:', req.files);
-    console.log('Inserting court:', court);
+
     const result = await db.collection(CRT_COLL).insertOne(court);
-    console.log('Insert result:', result);
+
     if (!result.acknowledged) {
-      console.log('DB insert error:', result);
       throw new Error('Court was not saved in the database');
     }
 
@@ -261,8 +237,6 @@ const getCourts = async (req, res) => {
 
 // Match Board handlers //
 const createMatch = async (req, res) => {
-  console.log('Request body:', req.body);
-  console.log('User from token:', req.user);
   try {
     const db = req.app.locals.db;
 
@@ -275,7 +249,6 @@ const createMatch = async (req, res) => {
     if (!dateTime || !address || !skillLevel || !type) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
-    // This is a pseudo-logic for extracting user ID from a valid token.
 
     const match = {
       dateTime,
@@ -287,7 +260,6 @@ const createMatch = async (req, res) => {
     };
 
     const result = await db.collection(MTCH_COLL).insertOne(match);
-    console.log('this is new user', result, match);
 
     res.status(201).json({
       acknowledged: result.acknowledged,

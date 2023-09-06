@@ -175,22 +175,6 @@ const SearchContainer = styled.div`
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 `;
 
-const SearchInput = styled.input`
-  flex: 2;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-const SkillSelect = styled.select`
-  flex: 2;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-const SkillOption = styled.option``;
-
 const PlayersList = styled.div`
   display: flex;
   flex-wrap: wrap;

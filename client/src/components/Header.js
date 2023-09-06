@@ -7,7 +7,7 @@ import { FiMenu, FiX } from 'react-icons/fi';
 
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const { isAuthenticated, userDetails, setIsAuthenticated } = useAuth();
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -68,22 +68,13 @@ const Hamburger = styled.button`
   z-index: 2000; // Value higher than Nav z-index
 `;
 
-const SiteTitle = styled.h1`
-  flex: 1;
-  text-align: center;
-  color: white;
-  font-size: 24px;
-  margin: 0;
-`;
-
 const NavBar = styled.div`
   z-index: 1000;
   position: relative;
 `;
 
 const Nav = styled.nav`
-  z-index: 10; //
-
+  z-index: 10;
   position: fixed;
   top: 0;
   left: 0;

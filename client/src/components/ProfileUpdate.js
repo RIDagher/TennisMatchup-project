@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import styled from 'styled-components';
 
 const ProfileUpdate = () => {
-  const navigate = useNavigate();
-
   const { userDetails, setUserDetails, token } = useAuth();
 
   const [formData, setFormData] = useState({
@@ -28,12 +25,12 @@ const ProfileUpdate = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      profilePicture: e.target.files[0],
-    }));
-  };
+  // const handleFileChange = (e) => {
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     profilePicture: e.target.files[0],
+  //   }));
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,10 +44,6 @@ const ProfileUpdate = () => {
     };
 
     console.log('Initiating profile update for user:', updatedData);
-
-    // Extract the token from the local storage
-    //const token = localStorage.getItem('authToken');
-    console.log('Token from localStorage:', token);
 
     try {
       const response = await fetch(`/api/users/${updatedData._id}`, {

@@ -7,7 +7,7 @@ const MatchBoard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const [showForm, setShowForm] = useState(false);
+  //const [showForm, setShowForm] = useState(false);
   const [searchSkillLevel, setSearchSkillLevel] = useState('');
   const [searchLocation, setSearchLocation] = useState('');
 
@@ -31,7 +31,7 @@ const MatchBoard = () => {
     setMatches((prevMatches) => [newMatch, ...prevMatches]);
   };
   const handleCancel = async (matchId) => {
-    // API call to join a match...
+    // API call to canscel match...
   };
 
   const handleJoin = async (matchId) => {
@@ -101,13 +101,6 @@ const SearchBar = styled.div`
 `;
 
 const Input = styled.input`
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  flex: 1;
-`;
-
-const SkillSelect = styled.select`
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -220,5 +213,4 @@ const CancelButton = styled.button`
   }
 `;
 
-const Button = styled.button``;
 export default MatchBoard;

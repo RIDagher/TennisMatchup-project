@@ -18,8 +18,6 @@ const CourtsPage = ({ courts, loading, error }) => {
                 )}`
               : null;
 
-          console.log(photoURL);
-
           return (
             <CourtCard key={court._id}>
               {photoURL && (
