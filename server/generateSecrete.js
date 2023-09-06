@@ -10,4 +10,4 @@ async function hashPassword(plainPassword) {
   console.log(hashed);
 }
 
-hashPassword('YourPlainText');
+hashPassword('');

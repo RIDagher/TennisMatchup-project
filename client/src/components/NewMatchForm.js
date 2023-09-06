@@ -3,7 +3,7 @@ import DateTimePicker from 'react-datetime';
 import { useAuth } from './AuthContext';
 import styled from 'styled-components';
 
-const NewMatchForm = () => {
+const NewMatchForm = ({ onNewMatch }) => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -11,22 +11,30 @@ const NewMatchForm = () => {
   const [address, setAddress] = useState('');
   const [skillLevel, setSkillLevel] = useState('');
   const [type, setType] = useState('');
-  const [organaizer, setOrganizer] = useState('');
 
   const { isAuthenticated, token, userDetails } = useAuth();
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
 
-    if (!dateTime || !address || !skillLevel || !type || !organaizer) {
+    // Log here
+    console.log('dateTime:', dateTime);
+    console.log('address:', address);
+    console.log('skillLevel:', skillLevel);
+    console.log('type:', type);
+
+    // Log here
+    console.log('userDetails:', userDetails);
+
+    if (!dateTime || !address || !skillLevel || !type) {
       setError('Please fill in all the fields.');
       return;
     }
-    if (!isAuthenticated) {
+    if (!isAuthenticated || !userDetails) {
       setError('Please log in to create a Match');
       return;
     }
-
+    const formattedDateTime = dateTime.format();
     //Api call to create a match
     try {
       const response = await fetch('/api/matches', {
@@ -36,30 +44,44 @@ const NewMatchForm = () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          dateTime,
+          userName: userDetails.firstName,
+          dateTime: formattedDateTime,
           address,
           skillLevel,
           type,
-          organaizer: userDetails.id,
+          organizer: userDetails._id,
         }),
       });
+
       const data = await response.json();
+      console.log('Server Response:', data);
 
       if (!response.ok) {
         throw new Error(data.message || 'Failed to create match.');
       }
-      setSuccess('Match created successfully! ');
+      if (data && data.match) {
+        onNewMatch(data.match);
+        setSuccess('Match created successfully! ');
+      }
     } catch (err) {
-      setError(error.message);
+      setError(err.message);
     }
+    console.log('Form submitted without refresh');
   };
 
   return (
     <Form onSubmit={handleSubmit}>
       {error && <ErrorMessage>{error}</ErrorMessage>}
       {success && <SuccessMessage>{success}</SuccessMessage>}
+      {/* <OrganizerName>Organizer: {userDetails?.firstName}</OrganizerName> */}
 
-      <DateTimePicker onChange={setDateTime} value={dateTime} />
+      <DateTimePicker
+        onChange={(value) => {
+          console.log('DateTimePicker value:', value);
+          setDateTime(value);
+        }}
+        value={dateTime}
+      />
 
       <Input
         type="text"
@@ -90,7 +112,7 @@ const NewMatchForm = () => {
 };
 
 // ... [Your other imports and main component logic]
-
+const OrganizerName = styled.h2``;
 const Form = styled.form`
   background: url('assets/racket1.avif') no-repeat center center;
   background-size: cover;

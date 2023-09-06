@@ -127,62 +127,42 @@ const updateUser = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {};
+//Delete Profile.
 
-//court Schema
-/*const courtSchema = Joi.object({
-  name: Joi.string().min(2).required(),
-  indoor: Joi.boolean().required(),
-  openingHours: Joi.string().required(),
-  location: Joi.string().required(),
-  photos: Joi.array().items(Joi.string())
+const deleteUser = async (req, res) => {
+  const deleteUser = async (req, res) => {
+    const db = req.app.locals.db;
+    const { _id } = req.params;
 
-
-  // And use this in the createCourt handler
-const validation = courtSchema.validate(req.body);
-if (validation.error) {
-    return res.status(400).json({ error: validation.error.details[0].message });
-}
-}); */
-
-/*const createCourt = async (req, res) => {
-  const db = req.app.locals.db;
-  const { name, indoorOrOutdoor, openingHours, location } = req.body;
-
-  //Input validation
-  if (!name || !indoorOrOutdoor || !openingHours || !location) {
-    return res.status(400).json({ error: 'Missing required fields' });
-  }
-
-  //Create court object
-
-  const court = {
-    name,
-    indoorOrOutdoor,
-    openingHours,
-    location,
-    photos: req.files ? req.files.map((file) => file.path) : [],
-  };
-
-  //Insert into DB with error handling
-  try {
-    const result = await db.collection(CRT_COLL).insertOne(court);
-
-    if (!result.acknowledged) {
-      throw new Error('Court was not saved in the database');
+    if (req.params._id !== req.user._id && !req.user.isAdmin) {
+      return res.status(403).json({
+        message: 'You can only delete your own profile or must be an admin',
+      });
     }
 
-    res.status(201).json({
-      acknowledged: result.acknowledged,
-      insertedId: result.insertedId,
-    });
-  } catch (error) {
-    console.log('Error:', error);
-    return res
-      .status(500)
-      .json({ error: 'Failed to create court', reason: error.message });
-  }
-}; */
+    try {
+      const result = await db
+        .collection(US_COLL)
+        .deleteOne({ _id: new ObjectId(_id) });
+
+      if (result.deletedCount > 0) {
+        return res.status(200).json({
+          message: 'User deleted successfully',
+        });
+      } else {
+        return res.status(404).json({
+          message: 'User not found',
+        });
+      }
+    } catch (error) {
+      console.error('Error while deleting user:', error);
+      return res.status(500).json({
+        error: 'Internal Server Error',
+        message: error.message,
+      });
+    }
+  };
+};
 
 // Google Api handlers //
 
@@ -279,6 +259,96 @@ const getCourts = async (req, res) => {
   }
 };
 
+// Match Board handlers //
+const createMatch = async (req, res) => {
+  console.log('Request body:', req.body);
+  console.log('User from token:', req.user);
+  try {
+    const db = req.app.locals.db;
+
+    // Use the _id directly from req.user
+    const organizerId = req.user._id;
+    const organizerName = req.user.firstName;
+
+    const { dateTime, address, skillLevel, type, organizer } = req.body;
+
+    if (!dateTime || !address || !skillLevel || !type) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+    // This is a pseudo-logic for extracting user ID from a valid token.
+
+    const match = {
+      dateTime,
+      address,
+      skillLevel,
+      type,
+      organizer: organizerId,
+      player: organizerName,
+    };
+
+    const result = await db.collection(MTCH_COLL).insertOne(match);
+    console.log('this is new user', result, match);
+
+    res.status(201).json({
+      acknowledged: result.acknowledged,
+      insertedId: result.insertedId,
+    });
+  } catch (error) {
+    console.error('Error in register:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+const getMatches = async (req, res) => {
+  const db = req.app.locals.db;
+
+  try {
+    const matches = await db.collection(MTCH_COLL).find().toArray();
+
+    if (matches.length > 0) {
+      return res
+        .status(200)
+        .json({ status: 200, data: matches, message: 'success!' });
+    } else {
+      return res
+        .status(404)
+        .json({ status: 404, message: 'No matches found!' });
+    }
+  } catch (error) {
+    console.log('Error:', error);
+    return res
+      .status(500)
+      .json({ error: 'Failed to fetch matches', reason: error.message });
+  }
+};
+
+const deleteMatch = async (req, res) => {
+  const db = req.app.locals.db;
+  const { _id } = req.params;
+
+  try {
+    const result = await db
+      .collection(MTCH_COLL)
+      .deleteOne({ _id: new ObjectId(_id) });
+
+    if (result.deletedCount > 0) {
+      return res.status(200).json({
+        message: 'Match deleted successfully',
+      });
+    } else {
+      return res.status(404).json({
+        message: 'Match not found',
+      });
+    }
+  } catch (error) {
+    console.error('Error while deleting match:', error);
+    return res.status(500).json({
+      error: 'Internal Server Error',
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   getUsers,
   getUser,
@@ -286,4 +356,6 @@ module.exports = {
   createCourt,
   getCourts,
   geocodeAddress,
+  createMatch,
+  getMatches,
 };

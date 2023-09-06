@@ -158,7 +158,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-  color: #4a56a5;
+  color: #009fdb;
   font-size: 30px;
   margin-bottom: 20px;
 `;

@@ -9,7 +9,7 @@ import styled from 'styled-components';
 
 const containerStyle = {
   width: '100%',
-  height: '600px',
+  height: '100vh',
 };
 
 const center = {
@@ -139,11 +139,11 @@ const Home = ({ courts }) => {
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={13}
+            zoom={12}
             options={{
               // ... other options ...
-              minZoom: 12,
-              maxZoom: 15,
+              minZoom: 10,
+              maxZoom: 20,
               styles: vibrantStyles,
             }}
           >

@@ -155,7 +155,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h2`
-  color: #4a56a5;
+  color: #009fdb;
   font-size: 40px;
   margin-bottom: 20px;
 `;
@@ -232,16 +232,21 @@ const Select = styled.select`
 `;
 
 const Button = styled.button`
+  margin: 10px;
   padding: 10px 20px;
   border: none;
-  background-color: #4a56a5;
+  background-color: #009fdb;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #f4891d;
+    background-color: #007b9e;
+  }
+
+  &:active {
+    transform: translateY(1px);
   }
 `;
 

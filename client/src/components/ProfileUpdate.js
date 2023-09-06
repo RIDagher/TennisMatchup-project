@@ -129,13 +129,14 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to right, #009fdb, #00c49a);
+  background: #fff;
   font-family: 'Arial', sans-serif;
 `;
 
 const Title = styled.h2`
-  color: #fff;
+  color: #009fdb;
   margin-bottom: 20px;
+  margin-top: 20px;
 `;
 
 const Message = styled.div`
@@ -190,7 +191,7 @@ const Button = styled.button`
   border: none;
   background-color: #009fdb;
   color: #fff;
-  border-radius: 5px;
+
   cursor: pointer;
   transition: background-color 0.3s ease;
 

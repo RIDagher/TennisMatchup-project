@@ -26,11 +26,12 @@ const CourtsPage = ({ courts, loading, error }) => {
                 <CourtImage src={photoURL} alt={court.name} />
                 // Displaying only the first photo
               )}
-
-              <CourtName>{court.name}</CourtName>
-              <CourtInfo>Type: {court.indoorOrOutdoor}</CourtInfo>
-              <CourtInfo>Opening Hours: {court.openingHours}</CourtInfo>
-              <CourtInfo>Address: {court.address}</CourtInfo>
+              <CourtInfoContainer>
+                <CourtName>{court.name}</CourtName>
+                <CourtInfo>Type: {court.indoorOrOutdoor}</CourtInfo>
+                <CourtInfo>Opening Hours: {court.openingHours}</CourtInfo>
+                <CourtInfo>Address: {court.address}</CourtInfo>
+              </CourtInfoContainer>
             </CourtCard>
           );
         })}
@@ -38,6 +39,8 @@ const CourtsPage = ({ courts, loading, error }) => {
     </Container>
   );
 };
+
+const CourtInfoContainer = styled.div``;
 
 const Container = styled.div`
   display: flex;
@@ -57,23 +60,15 @@ const CourtsList = styled.div`
 `;
 
 const Title = styled.h2`
-  color: #4a56a5;
+  color: #009fdb;
   font-size: 30px;
   margin-bottom: 20px;
-`;
-
-const ImageWrapper = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 50%;
 `;
 
 const CourtCard = styled.div`
   width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 
   background-color: #fff;
@@ -84,15 +79,15 @@ const CourtCard = styled.div`
 `;
 
 const CourtImage = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 50%;
+  height: 200px;
+  border-radius: 10px;
   margin-right: 20px;
   border: 1px solid;
 `;
 
 const CourtName = styled.h3`
-  font-size: 18px;
+  font-size: 15px;
   margin-bottom: 10px;
 `;
 
@@ -117,14 +112,21 @@ const AddCourtButton = styled.button`
 `;
 
 const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: white;
-  padding: 5px 10px;
+  margin: 10px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #009fdb;
+  color: #fff;
   border-radius: 5px;
-  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #555;
+    background-color: #007b9e;
+  }
+
+  &:active {
+    transform: translateY(1px);
   }
 `;
 export default CourtsPage;

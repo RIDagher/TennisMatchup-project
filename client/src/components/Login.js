@@ -113,7 +113,7 @@ const TennisImage = styled.img`
 `;
 
 const Title = styled.h2`
-  color: #fff;
+  color: #009fdb;
   margin-bottom: 20px;
 `;
 

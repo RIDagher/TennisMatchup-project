@@ -21,9 +21,9 @@ const Header = () => {
       <NavBar>
         <Hamburger onClick={() => setNavOpen(!navOpen)}>
           {navOpen ? (
-            <FiX size={32} color="#4A56A5" />
+            <FiX size={32} color="#009fdb" />
           ) : (
-            <FiMenu size={36} color="#4A56A5" />
+            <FiMenu size={36} color="#009fdb" />
           )}
         </Hamburger>
       </NavBar>
@@ -46,7 +46,7 @@ const Header = () => {
           <StyledLink to="/homepage">Homepage</StyledLink>
           <StyledLink to="/playersPage">Players</StyledLink>
           <StyledLink to="/courtsPage">Courts</StyledLink>
-          <StyledLink to="/matchBoardPage">MatchBoard</StyledLink>
+          <StyledLink to="/matchBoard">MatchBoard</StyledLink>
         </Nav>
       )}
     </Wrapper>
@@ -100,15 +100,19 @@ const Nav = styled.nav`
 `;
 
 const Button = styled.button`
-  padding: 5px 10px;
-  border-radius: 5px;
+  width: 100%;
+  padding: 7px 10px;
+
   cursor: pointer;
+
   &:hover {
     background-color: #555;
   }
 `;
 
 const StyledLink = styled(Link)`
+  width: 100%;
+  text-align: center;
   text-decoration: none;
   color: white;
   padding: 5px 10px;
