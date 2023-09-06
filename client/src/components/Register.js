@@ -151,7 +151,6 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   min-height: 100vh;
-  font-family: 'Arial', sans-serif;
 `;
 
 const Title = styled.h2`

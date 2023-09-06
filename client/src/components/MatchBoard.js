@@ -35,6 +35,7 @@ const MatchBoard = () => {
   };
 
   const handleJoin = async (matchId) => {
+    alert('Player joined the match succefully');
     // API call to join a match...
   };
   return (

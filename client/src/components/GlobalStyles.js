@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+   
     *,
     *:before,
     *:after {
@@ -8,6 +9,8 @@ export default createGlobalStyle`
       padding: 0;
       border: 0;
         box-sizing: border-box;
+        font-family: 'Raleway', sans-serif;
+         
         
     }
     #root {
@@ -19,6 +22,9 @@ export default createGlobalStyle`
 .main-content {
 
 }
+body {
+        font-family: 'Raleway', sans-serif;
+    }
 
 
     ol, ul {
