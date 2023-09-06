@@ -1,40 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import NewMatchForm from './NewMatchForm';
 
 const MatchBoard = () => {
-  return <div>MatchBoard</div>;
+  const [matches, setMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    const fetchMatches = async () => {
+      try {
+        const response = await fetch('api/matches');
+        const data = await response.json();
+        setMatches(data.matches);
+        setLoading(false);
+      } catch (err) {
+        setError('Error fetching matches.');
+        setLoading(false);
+      }
+    };
+    fetchMatches();
+  }, []);
+
+  const handleJoin = async (matchId) => {
+    // API call to join a match...
+  };
+  return (
+    <Wrapper>
+      <Title>Match Board</Title>
+      <Button onClick={() => setShowForm(!showForm)}>
+        {showForm ? 'Cancel' : 'Create a New Match'}
+      </Button>
+
+      {showForm && <NewMatchForm />}
+      {loading && <p>Loading...</p>}
+      {error && <Message>{error}</Message>}
+    </Wrapper>
+  );
 };
-
-const Container = styled.div`
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+const Wrapper = styled.div`
+  /* Styling for the main wrapper */
 `;
 
-const Title = styled.h1`
-  text-align: center;
-  margin-bottom: 40px;
+const Title = styled.h2`
+  /* Styling for the title */
 `;
 
-const PlayersGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+const Message = styled.div`
+  /* Styling for error messages, maybe with a red font */
 `;
 
-const PlayerCard = styled.div`
-  background: #f4f4f4;
-  border-radius: 8px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: scale(1.05);
-  }
+const MatchesList = styled.div`
+  /* Styling for the matches list container */
 `;
 
+const MatchItem = styled.div`
+  /* Styling for individual match items */
+`;
+
+const Button = styled.button``;
 export default MatchBoard;

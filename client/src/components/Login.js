@@ -7,6 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
   const { setIsAuthenticated, setUserDetails, saveToken } = useAuth();
@@ -14,6 +15,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+
+    // Validation
+    if (!email || !password) {
+      setError('Please provide both email and password.');
+      return;
+    }
 
     try {
       const response = await fetch('/api/login', {
@@ -31,6 +38,7 @@ const Login = () => {
         saveToken(data.token);
         setIsAuthenticated(true);
         setUserDetails(data.user);
+        setSuccess('Successfully logged in!');
         navigate('/homepage'); // navigate to homepage or dashboard after successful login
       } else {
         setError(data.error);
@@ -48,6 +56,8 @@ const Login = () => {
       <FormWrapper>
         <Title>Login</Title>
         {error && <Message style={{ color: 'red' }}>{error}</Message>}
+        {success && <Message style={{ color: 'green' }}>{success}</Message>}
+
         <FormT onSubmit={handleSubmit}>
           <FormGroup>
             <Label>Email:</Label>

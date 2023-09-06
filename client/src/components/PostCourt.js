@@ -20,6 +20,16 @@ const PostCourt = () => {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
 
+    if (
+      !formData.name ||
+      !formData.indoorOrOutdoor ||
+      !formData.openingHours ||
+      !formData.address
+    ) {
+      setError('Please fill in all the fields.');
+      return;
+    }
+
     if (!isAuthenticated) {
       setError('Please log in to post a court.');
       return;
@@ -62,7 +72,7 @@ const PostCourt = () => {
   const handleFileChange = (e) => {
     setFormData((prevData) => ({
       ...prevData,
-      photos: e.target.files,
+      photos: e.target.files[0],
     }));
   };
   return (
@@ -101,7 +111,12 @@ const PostCourt = () => {
         </FormGroup>
         <FormGroup>
           <Label>Photos:</Label>
-          <Input type="file" name="photos" onChange={handleFileChange} />
+          <Input
+            type="file"
+            name="photos"
+            multiple
+            onChange={handleFileChange}
+          />
         </FormGroup>
         <Button type="submit">Add Court</Button>
       </FormCourt>

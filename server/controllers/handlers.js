@@ -212,7 +212,7 @@ const geocodeAddress = async (address) => {
 const createCourt = async (req, res) => {
   const db = req.app.locals.db;
   const { name, indoorOrOutdoor, openingHours, address } = req.body;
-
+  console.log('Received files:', req.files);
   //Input validation
   if (!name || !indoorOrOutdoor || !openingHours || !address) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -236,6 +236,7 @@ const createCourt = async (req, res) => {
       address, // This will be in the format { lat: x, lng: y }
       photos: req.files ? req.files.map((file) => file.path) : [],
     };
+    console.log('Received files:', req.files);
     console.log('Inserting court:', court);
     const result = await db.collection(CRT_COLL).insertOne(court);
     console.log('Insert result:', result);
