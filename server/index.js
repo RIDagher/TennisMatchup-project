@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const multer = require('multer');
 const cors = require('cors');
 const userRoutes = require('./routes/routes');

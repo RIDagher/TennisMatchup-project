@@ -1,43 +1,85 @@
-TennisMatch Platform
+# Tennis Matchup App
 
-A tennis application allowing users to discover courts, schedule matches, and connect with players.
+## Description
 
-Features:
+Tennis Matchup App is a full-stack application designed to connect tennis enthusiasts. It enables users to discover tennis courts, schedule matches, and connect with other players. The app features user authentication, profile management, and an interactive platform for organizing and participating in tennis matches.
 
-User Authentication: Secure login for users.
-Court Posting: Users can post new tennis courts with details.
-MatchBoard: View all available matches and search based on skill level and location.
-NewMatchForm: Schedule a new match by setting a date, time, skill level, and type.
-Google Maps Integration: View and discover tennis courts on an interactive map.
+## Tech Stack
 
-Frontend:
+- **Frontend**: React, Styled-Components, React Router
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Authentication**: JWT (JSON Web Tokens)
+- **Other Tools**: Multer, Joi, bcrypt
 
-Built with React
+## Getting Started
 
-Components:
-Login: User authentication.
-PostCourt: Allows users to add tennis court details.
-MatchBoard: Displays available matches with search capabilities.
-NewMatchForm: Interface for scheduling a new match.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Context:
-AuthContext: Manages user authentication state and operations.
-UseHooks:
+### Prerequisites
 
-Backend:
+- Node.js
+- npm or yarn
+- MongoDB
 
-Built with Node.js, Express.js, and MongoDB
+### Installation
 
-Routes:
-login: Handles user authentication.
-courts: Endpoint for adding and retrieving tennis court details.
-matches: Endpoint for creating and fetching tennis match details.
+1. **Clone the repository:**
 
-Middleware:
+   ```
+   git clone [repository URL]
+   ```
 
-auth: Ensures that the user is authenticated.
+2. **Install backend dependencies:**
 
-Controllers:
-authController: Manages user registration, login, and token verification.
-courtController: Handles CRUD operations for tennis courts.
-matchController: Handles CRUD operations for tennis matches.
+   Navigate to the project's root directory and run:
+
+   ```
+   npm install
+   ```
+
+3. **Install frontend dependencies:**
+
+   Navigate to the client directory:
+
+   ```
+   cd client
+   npm install
+   ```
+
+4. **Set up environment variables:**
+
+   Create `.env` files in both the root and client directories and configure the required environment variables.
+
+### Running the Application
+
+1. **Start the backend server:**
+
+   In the root directory:
+
+   ```
+   npm start
+   ```
+
+2. **Start the React app:**
+
+   Open a new terminal, navigate to the client directory, and run:
+
+   ```
+   npm start
+   ```
+
+## Features
+
+- **User Authentication**: Sign up, log in, and manage user sessions.
+- **Profile Management**: Users can update their personal information, including skill level and location.
+- **Court Listings**: View and post tennis courts with details.
+- **Match Scheduling**: Create and join tennis matches.
+
+## Directory Structure
+
+Outline your project's directory structure for clarity.
+
+## Contributing
+
+Contributions are welcome. Please follow the standard fork-and-pull request workflow.
