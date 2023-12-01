@@ -27,7 +27,7 @@ These instructions will get you a copy of the project up and running on your loc
 1. **Clone the repository:**
 
    ```
-   git clone [repository URL]
+   git clone https://github.com/RIDagher/TennisMatchup-project.git
    ```
 
 2. **Install backend dependencies:**
@@ -77,8 +77,6 @@ These instructions will get you a copy of the project up and running on your loc
 - **Match Scheduling**: Create and join tennis matches.
 
 ## Directory Structure
-
-Outline your project's directory structure for clarity.
 
 ## Contributing
 
